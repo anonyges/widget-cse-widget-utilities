@@ -1,0 +1,176 @@
+<!-- Copyright start
+  Copyright (C) 2008 - 2025 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end -->
+<!-- 
+  author: kimd@fortinet.com
+  modified: 260221
+-->
+<form data-ng-submit="bt_save()" class="noMargin" name="editWidgetForm" data-ng-class="{'state-wait': processing }"
+  novalidate>
+  <div class="modal-header">
+    <h3 class="modal-title col-md-9">CSE Widget Utils View</h3>
+    <button type="button" class="close" data-ng-click="bt_cancel()" data-dismiss="modal" aria-label="Close"
+      id="close-edit-widget-form-btn">
+      <div aria-hidden="true" class="version-button">+</div>
+    </button>
+  </div>
+
+
+  <div class="modal-body" id="{{form_body_uid}}">
+    <!-- Start of modal-body  -->
+
+
+    <!-- Title Field -->
+    <div class="form-group" style="font-family: sans-serif;">
+      <span class="text-muted" style="font-weight: bold; text-transform: uppercase; font-size: 12px;">Edit
+        Title</span>
+      <div style="display: flex; align-items: baseline; font-family: sans-serif;">
+        <div style="flex: 0 0 auto; font-weight: bold; margin-right: 10px;">Title:</div>
+        <div style="flex: 1; margin-right: 40px; min-height: 34px;" data-cs-field="data_cs_title"
+          data-ng-model="config.title">
+        </div>
+        <div style="flex: 0 0 auto; margin-left: 40px; margin-right: 10px; font-weight: bold;">
+          Show Title:
+        </div>
+        <div style="flex: 0 0 auto; display: flex; align-items: center;">
+          <input type="checkbox" style="width: 18px; height: 18px; cursor: pointer;" data-ng-model="config.title_show">
+        </div>
+      </div>
+    </div>
+    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+    <!-- Title Field End -->
+
+
+    <!-- FormEntityService -->
+    <div class="form-group" style="font-family: sans-serif;">
+
+      <span class="text-muted" style="font-weight: bold; text-transform: uppercase; font-size: 12px;">On Field
+        Update</span>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+        <div style="display: flex; gap: 10px; align-items: baseline;">
+          <div style="flex: 1;">
+            <select class="form-control"
+              data-ng-options="item for item in getObjectKeySorted(csefes.module_field_names)"
+              data-ng-model="csefes.selected_module_field_name">
+              <option value="">Select a field</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary"
+            data-ng-click="bt_add_monitored_field(csefes.selected_module_field_name);"
+            data-ng-disabled="!csefes.selected_module_field_name">
+            Add Field
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 15px;" data-ng-if="getObjectKeyLength(config.csefes.monitored_fields) > 0">
+        <ul style="display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none;">
+          <li class="panel-body" style="display: flex; align-items: center; margin: 0; padding: 5px 12px;"
+            data-ng-repeat="item in getObjectKeySorted(config.csefes.monitored_fields)">
+            <span style="margin-right: 15px;">{{item}}</span>
+            <div style="display: flex; gap: 8px;">
+              <span class="icon icon-edit text-primary" style="cursor: pointer;"
+                data-ng-show="check_monitored_field(item)" data-ng-click="bt_edit_monitored_field(item)"></span>
+              <span class="icon icon-close text-danger" style="cursor: pointer;"
+                data-ng-click="bt_remove_monitored_field(item)"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div data-ng-if="csefes.current_editing_field.name">
+        <div class="panel-heading" style="display: flex; justify-content: space-between; align-items: baseline;">
+          <span>
+            <strong style="margin-right: 5px;">Editing:</strong>
+            <span class="text-primary" style="font-style: italic;">{{csefes.current_editing_field.name}} (Changes
+              Automatically Saved)</span>
+          </span>
+          <span class="text-danger" title="Required Field">*</span>
+        </div>
+
+        <div class="panel-body">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div
+              style="display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+              <div style="flex: 0 0 auto; margin-right: 15px;">
+                <i class="icon icon-information text-info"></i>
+                <strong>Record Limit:</strong>
+              </div>
+              <div style="flex: 1; display: flex; justify-content: flex-end;">
+                <div data-cs-field="csefes.current_editing_field.templates.$limit"
+                  data-ng-model="config.csefes.monitored_fields[csefes.current_editing_field.name].$limit"
+                  style="min-width: 150px;">
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+              <div style="flex: 0 0 auto;">
+                <i class="icon icon-information text-info"></i>
+                <strong>Selected Fields:</strong>
+              </div>
+              <div style="flex: 1; display: flex; justify-content: flex-end;">
+                <tags-input
+                  data-ng-model="config.csefes.monitored_fields[csefes.current_editing_field.name].__selectFields"
+                  class="form-control" style="height: auto; margin-left: 10px;">
+                  <auto-complete source="csefes.current_editing_field.templates.__selectFields($query)" min-length="0"
+                    load-on-focus="true" load-on-empty="true"></auto-complete>
+                </tags-input>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div style="padding-bottom: 2px;">
+                <i class="icon icon-information text-info"></i>
+                <strong>Build Record Query:</strong>
+              </div>
+              <div data-cs-conditional data-mode="'queryFilters'" data-show-uuid="true"
+                data-fields="csefes.current_editing_field.templates.filters"
+                data-ng-model="config.csefes.monitored_fields[csefes.current_editing_field.name].filters">
+              </div>
+            </div>
+
+          </div>
+
+          <div style="display: flex; gap: 10px; border-top: 1px solid #eee; padding-top: 15px;">
+            <button type="button" class="btn btn-primary btn-sm" data-ng-click="csefes.current_editing_field.name = ''">
+              <i class="icon icon-check"></i> Close Edit
+            </button>
+          </div>
+
+          <div class="alert alert-danger" style="margin-top: 15px; padding: 8px;"
+            data-ng-show="csefes.current_editing_field_to_watch_ng_show_error">
+            <small><i class="icon icon-warning"></i> Please complete this form and click "Close Edit"</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FormEntityService End -->
+
+
+    <!-- Monaco Editor Start -->
+    <!-- Un -->
+    <span class="text-muted" style="font-weight: bold; text-transform: uppercase; font-size: 12px;">Chart
+      Template</span>
+    <div style="width: 100%; height: 450px; resize: horizontal;" id="{{csemonaco.e0.id}}"></div>
+
+    <!-- Monaco Editor End -->
+
+
+
+
+
+    <!-- End of modal-body  -->
+  </div>
+
+
+  <div class="modal-footer">
+    <button id="edit-widget-save" type="submit" class="btn btn-sm btn-primary"><i
+        class="icon icon-check margin-right-sm"></i>Save</button>
+    <button id="edit-widget-cancel" type="button" class="btn btn-sm btn-default" data-ng-click="bt_cancel()"><i
+        class="icon icon-close margin-right-sm"></i>Close</button>
+  </div>
+</form>

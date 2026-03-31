@@ -1,0 +1,10 @@
+/* This fixes the popup like, Widget dialogs to have dynamic codes. */
+
+#custom-modal {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  resize: both;           /* allow horizontal & vertical resize */
+  overflow: hidden;       /* required for resize to show in many browsers, change this if some content is missing */
+  box-sizing: border-box; /* keeps padding inside the width/height */
+}

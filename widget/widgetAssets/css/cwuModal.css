@@ -1,0 +1,42 @@
+/* This fixes the popup like, Manual Input, Approval to have dynamic codes. */
+
+.modal:not(.modal-panel) .modal-dialog {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  resize: both;           /* allow horizontal & vertical resize */
+  overflow: hidden;       /* required for resize to show in many browsers, change this if some content is missing */
+  box-sizing: border-box; /* keeps padding inside the width/height */
+  
+  max-width: 90%;       /* keeps padding inside the screen width/height */
+  max-height: 90%;       /* keeps padding inside the screen width/height */
+}
+
+.modal:not(.modal-panel) .modal-dialog .modal-content {
+  height: auto;
+}
+
+.modal:not(.modal-panel) .modal-dialog .modal-content > form {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.modal:not(.modal-panel) .modal-dialog .modal-content > form > .modal-header {
+  flex: 0 0 auto;
+}
+
+/* Middle div: takes all remaining space */
+.modal:not(.modal-panel) .modal-dialog .modal-content > form > .modal-body {
+  flex: 1 1 auto;   /* this one grows/shrinks */
+  overflow: auto;   /* scroll if its content is too big */
+  max-height: 80vh;
+}
+
+/* Bottom div: stays at bottom, no growth */
+.modal:not(.modal-panel) .modal-dialog .modal-content > form > .modal-footer {
+  flex-shrink: 0;    /* Prevents the footer from squishing */
+  margin-top: auto;  /* Extra insurance to push it down */
+  position: sticky;  /* Optional: keeps it visible even if the body scrolls */
+  bottom: 0;
+}

@@ -1,0 +1,16 @@
+{
+    "name": "cseWidgetUtilities",
+    "version": "1.0.0",
+    "title": "CSE Widget Utilities",
+    "metadata": {
+        "pages": [],
+        "certified": "No",
+        "publisher": "kimd@fortinet.com",
+        "standalone": false,
+        "description": "Base library to provide functions to run multiple widgets that was developed by Fortinet CSE.\n\nThanks to contributors:\n- kimd@fortinet.com\n- mnaili@fortinet.com\n- dspille@fortinet.com\n- kjaehwan@fortinet.com\n- hlinda@fortinet.com",
+        "compatibility": [
+            "7.5.0"
+        ]
+    },
+    "development": false
+}

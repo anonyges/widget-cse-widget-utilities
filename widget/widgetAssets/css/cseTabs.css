@@ -1,0 +1,13 @@
+.cse-flex-nav {
+  display: flex !important;
+  flex-direction: row;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cse-flex-nav>li {
+  flex: 1;
+  float: none !important;
+  text-align: center;
+}

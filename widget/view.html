@@ -1,0 +1,25 @@
+<!-- Copyright start
+  Copyright (C) 2008 - 2025 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end -->
+<!-- 
+  author: kimd@fortinet.com
+  modified: 260223
+-->
+<div class="widget widget-container chart">
+  <div data-ng-show="config.title_show" class="display-flex-space-between widget-title widget-title-padding">
+    <div class="widget-title-width padding-right-0 padding-left-0">
+      <h5 class="margin-top-0 margin-bottom-0 text-overflow font-1em ng-binding">{{config.title}}</h5>
+    </div>
+    <div class="widget-actions-width padding-right-0 padding-left-0">
+      <span class="fa btn widget-action-icon btn-sm pull-right fa-caret-up" data-ng-click="ui_collapsed = !ui_collapsed"
+        data-ng-class="{'fa-caret-up': !ui_collapsed, 'fa-caret-down': ui_collapsed}" role="button" tabindex="0"></span>
+      <span class="icon icon-refresh btn btn-sm widget-action-icon pull-right" ng-click="bt_refresh()"
+        data-uib-tooltip="Refresh" role="button" tabindex="0"></span>
+    </div>
+  </div>
+  <div id="{{form_body_uid}}" data-ng-hide="ui_collapsed">
+    <div id="{{chart_uid}}"></div>
+  </div>
+</div>
